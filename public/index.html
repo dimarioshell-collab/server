@@ -9,6 +9,15 @@
     <input type="text" id="inputField" placeholder="Type something...">
     <button id="submitButton">Submit</button>
     <script>
+        fetch('/api/join')
+            .then(response => response.json())
+            .then(data => {
+            console.log(data);
+            
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
         document.getElementById('submitButton').addEventListener('click', () => {
             const input = document.getElementById('inputField').value;
             console.log(input); 
@@ -19,6 +28,13 @@
                 },
                 body: JSON.stringify({ input })
             })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error submitting data:', error);
+            });
         });
     </script>
 </body>
