@@ -9,13 +9,32 @@
     <input type="text" id="inputField" placeholder="Type something..." />
     <button id="submitButton">Submit</button>
     <script>
-      fetch("/api/join")
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
+        fetch('/api/join')
+            .then(response => response.json())
+            .then(data => {
+            console.log(data);
+            
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+        document.getElementById('submitButton').addEventListener('click', () => {
+            const input = document.getElementById('inputField').value;
+            console.log(input); 
+            fetch('/api/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ input })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error submitting data:', error);
+            });
         });
       document.getElementById("submitButton").addEventListener("click", () => {
         const input = document.getElementById("inputField").value;
