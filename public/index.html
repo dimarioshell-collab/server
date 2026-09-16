@@ -1,25 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <input type="text" id="inputField" placeholder="Type something...">
+  </head>
+  <body>
+    <input type="text" id="inputField" placeholder="Type something..." />
     <button id="submitButton">Submit</button>
     <script>
-        document.getElementById('submitButton').addEventListener('click', () => {
-            const input = document.getElementById('inputField').value;
-            console.log(input); 
-            fetch('/api/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ input })
-            })
+      fetch("/api/join")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
         });
+      document.getElementById("submitButton").addEventListener("click", () => {
+        const input = document.getElementById("inputField").value;
+        console.log(input);
+        fetch("/api/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ input }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error("Error submitting data:", error);
+          });
+      });
     </script>
-</body>
+  </body>
 </html>
