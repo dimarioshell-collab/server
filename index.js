@@ -51,6 +51,15 @@ const server = http.createServer((req, res) => {
           return;
         }
 
+        const users = readUsers();
+        const newUser = {
+          id: Date.now(),
+          name: input.trim(),
+          createdAt: new Date().toISOString(),
+        };
+        users.push(newUser);
+        saveUsers(users);
+
         console.log("Сохранён пользователь:", newUser);
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(
@@ -74,7 +83,7 @@ const server = http.createServer((req, res) => {
     const users = readUsers();
     const newUser = {
       id: Date.now(),
-      reatedAt: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
     };
 
     users.push(newUser);
@@ -113,6 +122,7 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}/`);
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running at http://0.0.0.0:${PORT}/`);
+  console.log(`Открывайте с телефона: http://192.168.0.102:${PORT}/`);
 });
